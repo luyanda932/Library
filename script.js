@@ -21,13 +21,15 @@ formElement.addEventListener("submit", (e) => {
 });
 
 function createBookCard(formData) {
+  addBookToLibrary(...formData.values()); // create a new Book object and add it to array of Book objects
+  
   const newDiv = document.createElement("div");
   newDiv.className = "bookCard";
   newDiv.style.cssText =
-    "padding: 10px; width: 300px; height: 220px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);";
+    "padding: 20px; width: 300px; height: 220px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);";
+  
   const type = ["Title", "Author", "Number of pages", "Read or unread"];
   const valuesArray = Array.from(formData.values());
-  addBookToLibrary(...formData.values()); // create a new Book object and add it to array of Book objects
   for (let i = 0; i < type.length; i++) {
     let p = document.createElement("p");
     p.setAttribute("bookId", myLibrary[myLibrary.length - 1].id);
@@ -36,8 +38,8 @@ function createBookCard(formData) {
   }
   newDiv.setAttribute("bookId", myLibrary[myLibrary.length - 1].id);
 
-  let removeButton = document.createElement("button");
-  removeButton.setAttribute("bookId", myLibrary[myLibrary.length - 1].id);
+  let removeButton = document.createElement("button"); // create button to remove book
+  removeButton.setAttribute("bookId", myLibrary[myLibrary.length - 1].id); // set attribute of button to current object id
   removeButton.textContent = "Remove";
   removeButton.style.cssText = "width: 100px; height: 40px; color: black;";
   removeButton.addEventListener("click", () => {
@@ -47,8 +49,8 @@ function createBookCard(formData) {
     divsToRemove.forEach((el) => el.remove());
   });
 
-  let readStatusButton = document.createElement("button");
-  readStatusButton.setAttribute("bookId", myLibrary[myLibrary.length - 1].id);
+  let readStatusButton = document.createElement("button"); // create button to change read status
+  readStatusButton.setAttribute("bookId", myLibrary[myLibrary.length - 1].id); // set attribute of button to current object id
   readStatusButton.textContent = "Change read status";
   readStatusButton.style.cssText =
     "color: black; width: 150px; height: 40px; margin-left: 10px;";
@@ -75,7 +77,7 @@ function createBookCard(formData) {
   cards.appendChild(newDiv);
 }
 
-
+// Book constructor
 function Book(title, author, pages, readStatus) {
   // the constructor...
   this.title = title;
@@ -85,6 +87,7 @@ function Book(title, author, pages, readStatus) {
   this.id = crypto.randomUUID();
 }
 
+// prototype function to toggle between the read statuses
 Book.prototype.toggleStatus = function() {
   if(this.readStatus === "Read")
     this.readStatus = "Unread";
@@ -98,15 +101,6 @@ function addBookToLibrary(title, author, pages, readStatus) {
   myLibrary.push(book);
 }
 
-function removeBook() {
-
-}
-
-function changeStatus() {
-
-}
-
-function displayBooks() {}
 
 // addBookToLibrary("A Tale of Two Cities", "Charles Dickens", "288", "Read"); // 1859
 // addBookToLibrary("Frankenstein ", "Mary Shelley", "219", "Read"); // 1823
