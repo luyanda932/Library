@@ -1,8 +1,8 @@
-const showButton = document.getElementById("showDialog");
-const dialog = document.getElementById("formDialog");
-const formElement = document.querySelector("form");
-const closeButton = document.querySelector("dialog button");
-const cards = document.getElementById("bookCards");
+const showButton = document.getElementById("showDialog"); // button to show dialog
+const dialog = document.getElementById("formDialog"); // the dialog
+const formElement = document.querySelector("form"); // form inside the dialog
+const closeButton = document.querySelector("dialog button"); // form cancel button
+const cards = document.getElementById("bookCards"); // container for the book cards
 const myLibrary = []; // an array of book objects
 
 showButton.addEventListener("click", () => {
@@ -23,26 +23,29 @@ formElement.addEventListener("submit", (e) => {
 function createBookCard(formData) {
   addBookToLibrary(...formData.values()); // create a new Book object and add it to array of Book objects
   
-  const newDiv = document.createElement("div");
+  const newDiv = document.createElement("div"); // container for each book
   newDiv.className = "bookCard";
   newDiv.style.cssText =
     "padding: 20px; width: 300px; height: 220px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);";
+  newDiv.setAttribute("bookId", myLibrary[myLibrary.length - 1].id);
   
-  const type = ["Title", "Author", "Number of pages", "Read or unread"];
-  const valuesArray = Array.from(formData.values());
-  for (let i = 0; i < type.length; i++) {
+  const labels = ["Title", "Author", "Number of pages", "Read or unread"]; // array of labels
+  const valuesArray = Array.from(formData.values()); // array of data
+
+  // loop to store paragraphs that display information
+  for (let i = 0; i < labels.length; i++) {
     let p = document.createElement("p");
     p.setAttribute("bookId", myLibrary[myLibrary.length - 1].id);
-    p.textContent = type[i] + ": " + valuesArray[i];
-    newDiv.appendChild(p);
+    p.textContent = labels[i] + ": " + valuesArray[i];
+    newDiv.appendChild(p); // append each paragraph to the div
   }
-  newDiv.setAttribute("bookId", myLibrary[myLibrary.length - 1].id);
 
   let removeButton = document.createElement("button"); // create button to remove book
   removeButton.setAttribute("bookId", myLibrary[myLibrary.length - 1].id); // set attribute of button to current object id
   removeButton.textContent = "Remove";
   removeButton.style.cssText = "width: 100px; height: 40px; color: black;";
-  removeButton.addEventListener("click", () => {
+  removeButton.addEventListener("click", () => { 
+    // remove div with the same attribute value as the button
     const divsToRemove = document.querySelectorAll(
       `div[bookId="${removeButton.getAttribute("bookId")}"`,
     );
@@ -55,12 +58,13 @@ function createBookCard(formData) {
   readStatusButton.style.cssText =
     "color: black; width: 150px; height: 40px; margin-left: 10px;";
   readStatusButton.addEventListener("click", () => {
-    const divToChange = document.querySelector(
+    const divToChange = document.querySelector( // select div with same attribute value as the button
       `div[bookId="${readStatusButton.getAttribute("bookId")}"`,
     );
     const paragraphToChange = divToChange.querySelector(":nth-child(4)");
 
     let bookObject = {};
+
     // change book read status
     for (const book of myLibrary) {
       if (readStatusButton.getAttribute("bookId") === book.id) {
@@ -69,7 +73,7 @@ function createBookCard(formData) {
       }
     }
 
-    paragraphToChange.textContent = type[3] + ": " + bookObject.readStatus;
+    paragraphToChange.textContent = labels[3] + ": " + bookObject.readStatus;
   });
 
   newDiv.appendChild(removeButton);
@@ -84,7 +88,7 @@ function Book(title, author, pages, readStatus) {
   this.author = author;
   this.pages = pages;
   this.readStatus = readStatus;
-  this.id = crypto.randomUUID();
+  this.id = crypto.randomUUID(); // generate a unique ID
 }
 
 // prototype function to toggle between the read statuses
