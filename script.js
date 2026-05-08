@@ -1,0 +1,115 @@
+const showButton = document.getElementById("showDialog");
+const dialog = document.getElementById("formDialog");
+const formElement = document.querySelector("form");
+const closeButton = document.querySelector("dialog button");
+const cards = document.getElementById("bookCards");
+const myLibrary = []; // an array of book objects
+
+showButton.addEventListener("click", () => {
+  dialog.showModal();
+});
+
+closeButton.addEventListener("click", () => {
+  dialog.close();
+});
+
+formElement.addEventListener("submit", (e) => {
+  e.preventDefault(); // Prevents the page from reloading
+  const data = new FormData(e.target);
+  createBookCard(data);
+  dialog.close();
+});
+
+function createBookCard(formData) {
+  const newDiv = document.createElement("div");
+  newDiv.className = "bookCard";
+  newDiv.style.cssText =
+    "padding: 10px; width: 300px; height: 220px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);";
+  const type = ["Title", "Author", "Number of pages", "Read or unread"];
+  const valuesArray = Array.from(formData.values());
+  addBookToLibrary(...formData.values()); // create a new Book object and add it to array of Book objects
+  for (let i = 0; i < type.length; i++) {
+    let p = document.createElement("p");
+    p.setAttribute("bookId", myLibrary[myLibrary.length - 1].id);
+    p.textContent = type[i] + ": " + valuesArray[i];
+    newDiv.appendChild(p);
+  }
+  newDiv.setAttribute("bookId", myLibrary[myLibrary.length - 1].id);
+
+  let removeButton = document.createElement("button");
+  removeButton.setAttribute("bookId", myLibrary[myLibrary.length - 1].id);
+  removeButton.textContent = "Remove";
+  removeButton.style.cssText = "width: 100px; height: 40px; color: black;";
+  removeButton.addEventListener("click", () => {
+    const divsToRemove = document.querySelectorAll(
+      `div[bookId="${removeButton.getAttribute("bookId")}"`,
+    );
+    divsToRemove.forEach((el) => el.remove());
+  });
+
+  let readStatusButton = document.createElement("button");
+  readStatusButton.setAttribute("bookId", myLibrary[myLibrary.length - 1].id);
+  readStatusButton.textContent = "Change read status";
+  readStatusButton.style.cssText =
+    "color: black; width: 150px; height: 40px; margin-left: 10px;";
+  readStatusButton.addEventListener("click", () => {
+    const divToChange = document.querySelector(
+      `div[bookId="${readStatusButton.getAttribute("bookId")}"`,
+    );
+    const paragraphToChange = divToChange.querySelector(":nth-child(4)");
+
+    let bookObject = {};
+    // change book read status
+    for (const book of myLibrary) {
+      if (readStatusButton.getAttribute("bookId") === book.id) {
+        bookObject = book;
+        book.toggleStatus();
+      }
+    }
+
+    paragraphToChange.textContent = type[3] + ": " + bookObject.readStatus;
+  });
+
+  newDiv.appendChild(removeButton);
+  newDiv.appendChild(readStatusButton);
+  cards.appendChild(newDiv);
+}
+
+
+function Book(title, author, pages, readStatus) {
+  // the constructor...
+  this.title = title;
+  this.author = author;
+  this.pages = pages;
+  this.readStatus = readStatus;
+  this.id = crypto.randomUUID();
+}
+
+Book.prototype.toggleStatus = function() {
+  if(this.readStatus === "Read")
+    this.readStatus = "Unread";
+  else
+    this.readStatus = "Read";
+};
+
+function addBookToLibrary(title, author, pages, readStatus) {
+  // take params, create a book then store it in the array
+  const book = new Book(title, author, pages, readStatus);
+  myLibrary.push(book);
+}
+
+function removeBook() {
+
+}
+
+function changeStatus() {
+
+}
+
+function displayBooks() {}
+
+// addBookToLibrary("A Tale of Two Cities", "Charles Dickens", "288", "Read"); // 1859
+// addBookToLibrary("Frankenstein ", "Mary Shelley", "219", "Read"); // 1823
+// addBookToLibrary("The Three Musketeers", "Alexandre Dumas", "592", "Unread"); // 1844
+// addBookToLibrary("Nineteen Eighty Four", "George Orwell", "432", "Unread"); // 1949
+// addBookToLibrary("Great Expectation", "Charles Dickens", "600", "Read"); // 1961
