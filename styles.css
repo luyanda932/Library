@@ -1,7 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: Nunito;
+	position: relative;
+}
+
+h1 {
+	font-size: 40px;
+	text-align: center;
+}
+
+#showDialog {
+	display: block;
+	font-size: 20px;
+	margin: 0 auto;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 10px;
+}
+
+dialog {
+  padding: 2rem;
+  border: none;
+  border-radius: 8px;
+}
+
+dialog[open] {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#title, #author, #pages {
+	border-radius: 5px;
+	display: block;
+	width: 400px;
+	height: 40px;
+	padding: 0 5px;
+	margin-bottom: 10px;
+	font-size: 16px;
+}
+
+select {
+}
+
+#modalDialog {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+}
+
 #bookCards {
     display: flex; 
     flex-direction: row;
     flex-wrap: wrap; 
-    align-items: centre;
     gap: 20px;
+}
+
+dialog form button,
+dialog form input[type="submit"] {
+	padding: 10px 15px;
+	margin-right: 5px;
+	font-size: 16px;
 }

@@ -29,7 +29,7 @@ function createBookCard(formData) {
     "padding: 20px; width: 300px; height: 220px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);";
   newDiv.setAttribute("bookId", myLibrary[myLibrary.length - 1].id);
   
-  const labels = ["Title", "Author", "Number of pages", "Read or unread"]; // array of labels
+  const labels = ["Title", "Author", "Number of pages", "Read or not read"]; // array of labels
   const valuesArray = Array.from(formData.values()); // array of data
 
   // loop to store paragraphs that display information
@@ -94,7 +94,7 @@ function Book(title, author, pages, readStatus) {
 // prototype function to toggle between the read statuses
 Book.prototype.toggleStatus = function() {
   if(this.readStatus === "Read")
-    this.readStatus = "Unread";
+    this.readStatus = "Not read";
   else
     this.readStatus = "Read";
 };
