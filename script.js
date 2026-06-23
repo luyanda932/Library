@@ -25,8 +25,6 @@ function createBookCard(formData) {
   
   const newDiv = document.createElement("div"); // container for each book
   newDiv.className = "bookCard";
-  newDiv.style.cssText =
-    "padding: 20px; width: 300px; height: 220px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);";
   newDiv.setAttribute("bookId", myLibrary[myLibrary.length - 1].id);
   
   const labels = ["Title", "Author", "Number of pages", "Read or not read"]; // array of labels
@@ -40,10 +38,12 @@ function createBookCard(formData) {
     newDiv.appendChild(p); // append each paragraph to the div
   }
 
+  const buttonsDiv = document.createElement("div"); // div for buttons
+  buttonsDiv.style.cssText = "display: flex; justify-content: center; gap: 5px;";
+
   let removeButton = document.createElement("button"); // create button to remove book
   removeButton.setAttribute("bookId", myLibrary[myLibrary.length - 1].id); // set attribute of button to current object id
   removeButton.textContent = "Remove";
-  removeButton.style.cssText = "width: 100px; height: 40px; color: black;";
   removeButton.addEventListener("click", () => { 
     // remove div with the same attribute value as the button
     const divsToRemove = document.querySelectorAll(
@@ -55,8 +55,6 @@ function createBookCard(formData) {
   let readStatusButton = document.createElement("button"); // create button to change read status
   readStatusButton.setAttribute("bookId", myLibrary[myLibrary.length - 1].id); // set attribute of button to current object id
   readStatusButton.textContent = "Change read status";
-  readStatusButton.style.cssText =
-    "color: black; width: 150px; height: 40px; margin-left: 10px;";
   readStatusButton.addEventListener("click", () => {
     const divToChange = document.querySelector( // select div with same attribute value as the button
       `div[bookId="${readStatusButton.getAttribute("bookId")}"`,
@@ -76,8 +74,9 @@ function createBookCard(formData) {
     paragraphToChange.textContent = labels[3] + ": " + bookObject.readStatus;
   });
 
-  newDiv.appendChild(removeButton);
-  newDiv.appendChild(readStatusButton);
+  buttonsDiv.appendChild(removeButton);
+  buttonsDiv.appendChild(readStatusButton);
+  newDiv.appendChild(buttonsDiv);
   cards.appendChild(newDiv);
 }
 

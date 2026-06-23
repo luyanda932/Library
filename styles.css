@@ -1,28 +1,39 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-	font-family: Nunito;
-	position: relative;
+  font-family: Nunito;
+  position: relative;
+  background-color: #f5f5f5;
+  margin: 0 10rem;
 }
 
 h1 {
-	font-size: 40px;
-	text-align: center;
+  font-size: 40px;
+  text-align: center;
 }
 
 #showDialog {
-	display: block;
-	font-size: 20px;
-	margin: 0 auto;
-	padding: 10px 20px;
-	border: none;
-	border-radius: 10px;
+  font-size: 20px;
+  margin: 0 auto 20px auto;
+  padding: 10px 20px;
+  border: none;
+  background: none;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+#showDialog i {
+  padding-right: 10px;
+  font-size: 1.5rem;
+  color: #666;
 }
 
 dialog {
@@ -38,35 +49,81 @@ dialog[open] {
   transform: translate(-50%, -50%);
 }
 
-#title, #author, #pages {
-	border-radius: 5px;
-	display: block;
-	width: 400px;
-	height: 40px;
-	padding: 0 5px;
-	margin-bottom: 10px;
-	font-size: 16px;
+dialog form h1 {
+  font-weight: 400;
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+dialog form label {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 5px;
+  color: #333;
+  font-weight: 500;
+}
+
+#title,
+#author,
+#pages {
+  border-radius: 5px;
+  display: block;
+  width: 400px;
+  height: 40px;
+  padding: 0 5px;
+  margin-bottom: 10px;
+  font-size: 16px;
 }
 
 select {
 }
 
 #modalDialog {
-	position: absolute;
-	top: 50%;
-	left: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
 }
 
 #bookCards {
-    display: flex; 
-    flex-direction: row;
-    flex-wrap: wrap; 
-    gap: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.bookCard {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 10px 10px;
+  width: 400px;
+  height: 250px;
+}
+
+.bookCard button {
+  border-radius: 5px;
+  padding: 10px 15px;
+  margin: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.bookCard p {
+  padding: 10px;
 }
 
 dialog form button,
 dialog form input[type="submit"] {
-	padding: 10px 15px;
-	margin-right: 5px;
-	font-size: 16px;
+  border-radius: 5px;
+  padding: 10px 15px;
+  margin: 10px;
+  font-size: 16px;
+}
+
+dialog form select {
+  border-radius: 5px;
+  padding: 10px 5px;
 }
